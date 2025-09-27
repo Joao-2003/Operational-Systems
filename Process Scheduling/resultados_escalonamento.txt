@@ -1,0 +1,92 @@
+### RESULTADOS DA SIMULAÇÃO DE ESCALONAMENTO DE PROCESSOS ###
+
+ALGORITMO: FCFS (First-Come, First-Served)
+Ordem de Execução: P1 -> P2 -> P3 -> P4 -> P5
+
+  Processo   Tempo de Espera Tempo de Retorno
+  ----------------------------------------
+  P1         0               5              
+  P2         3               6              
+  P3         4               12             
+  P4         11              17             
+  P5         11              19             
+
+Tempo Médio de Espera: 5,80
+Tempo Médio de Retorno: 11,80
+----------------------------------------
+
+ALGORITMO: SJF (Shortest Job First)
+Ordem de Execução: P1 -> P2 -> P4 -> P3 -> P5
+
+  Processo   Tempo de Espera Tempo de Retorno
+  ----------------------------------------
+  P1         0               5              
+  P2         3               6              
+  P4         3               9              
+  P3         10              18             
+  P5         11              19             
+
+Tempo Médio de Espera: 5,40
+Tempo Médio de Retorno: 11,40
+----------------------------------------
+
+ALGORITMO: Round Robin (RR) com Quantum=2
+Ordem de Execução: P1 -> P2 -> P1 -> P3 -> P2 -> P4 -> P1 -> P3 -> P5 -> P4 -> P3 -> P5 -> P4 -> P3 -> P5 -> P5
+
+  Processo   Tempo de Espera Tempo de Retorno
+  ----------------------------------------
+  P1         7               12             
+  P2         4               7              
+  P3         14              22             
+  P4         13              19             
+  P5         11              19             
+
+Tempo Médio de Espera: 9,80
+Tempo Médio de Retorno: 15,80
+----------------------------------------
+
+ALGORITMO: Priority Scheduling (Não-Preemptivo)
+Ordem de Execução: P1 -> P2 -> P4 -> P5 -> P3
+
+  Processo   Tempo de Espera Tempo de Retorno
+  ----------------------------------------
+  P1         0               5              
+  P2         3               6              
+  P4         3               9              
+  P5         3               11             
+  P3         18              26             
+
+Tempo Médio de Espera: 5,40
+Tempo Médio de Retorno: 11,40
+----------------------------------------
+
+ALGORITMO: Priority Scheduling - Multiple Queues
+Ordem de Execução: P1 -> P2 -> P2 -> P3 -> P5 -> P5 -> P5 -> P5 -> P4
+
+  Processo   Tempo de Espera Tempo de Retorno
+  ----------------------------------------
+  P1         0               5              
+  P2         3               6              
+  P3         4               12             
+  P4         19              25             
+  P5         5               13             
+
+Tempo Médio de Espera: 6,20
+Tempo Médio de Retorno: 12,20
+----------------------------------------
+
+ALGORITMO: Lottery Scheduling
+Ordem de Execução: P1 -> P1 -> P2 -> P1 -> P2 -> P4 -> P1 -> P1 -> P3 -> P2 -> P4 -> P5 -> P4 -> P4 -> P4 -> P5 -> P5 -> P3 -> P3 -> P4 -> P5 -> P3 -> P5 -> P3 -> P3 -> P5 -> P5 -> P3 -> P5 -> P3
+
+  Processo   Tempo de Espera Tempo de Retorno
+  ----------------------------------------
+  P1         3               8              
+  P2         5               8              
+  P3         18              26             
+  P4         9               15             
+  P5         10              18             
+
+Tempo Médio de Espera: 9,00
+Tempo Médio de Retorno: 15,00
+----------------------------------------
+
