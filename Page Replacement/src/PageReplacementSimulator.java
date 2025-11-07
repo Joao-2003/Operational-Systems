@@ -2,6 +2,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Arrays;
+import java.util.Queue;
+import java.util.LinkedList;
 
 /**
  * Classe principal que executa a simulação dos algoritmos de substituição de páginas.
@@ -26,6 +28,9 @@ public class PageReplacementSimulator {
     // Ponteiros para algoritmos
     private int fifoPointer = 0;
     private int clockPointer = 0;
+
+    // Estrutura auxiliar para o FIFO-SC (Fila explícita)
+    private Queue<Integer> fifoSCQueue = new LinkedList<>();
 
     // Estrutura auxiliar para o LRU
     // Armazena o "tempo" (número da instrução) do último acesso
@@ -119,6 +124,7 @@ public class PageReplacementSimulator {
      */
     private void initializeRam() {
         Set<Integer> selectedPages = new HashSet<>();
+        fifoSCQueue.clear(); // <-- 3. Limpar a fila a cada nova simulação
         for (int i = 0; i < RAM_SIZE; i++) {
             int pageN;
             // Garante que a página sorteada ainda não está na RAM
@@ -131,6 +137,7 @@ public class PageReplacementSimulator {
             // Copia a página do SWAP para a RAM (usando construtor de cópia)
             ram[i] = new Page(swap[pageN]);
             lruTimestamps[i] = 0; // Inicializa o timestamp LRU
+            fifoSCQueue.add(i); // <-- 4. Adicionar o índice do frame na fila FIFO-SC
         }
     }
 
@@ -316,19 +323,27 @@ public class PageReplacementSimulator {
 
     /**
      * Algoritmo FIFO-SC (Second Chance).
+     * Implementado com uma Fila (Queue) explícita para diferenciar do Clock.
+     * A página na frente da fila é checada. Se R=1, R é zerado e ela
+     * é movida para o fim da fila. Se R=0, ela é a vítima.
      */
     private int findVictimFIFOSC() {
         while (true) {
-            Page p = ram[fifoPointer];
+            // 1. Pega o frame mais antigo (frente da fila)
+            int victimIndex = fifoSCQueue.poll(); // Remove da frente
+            Page p = ram[victimIndex];
+
             if (p.R == 0) {
-                // Vítima encontrada (R=0)
-                int victimIndex = fifoPointer;
-                fifoPointer = (fifoPointer + 1) % RAM_SIZE;
+                // 2. Vítima encontrada (R=0).
+                // O slot (victimIndex) será reusado, então o adicionamos
+                // de volta ao fim da fila para a nova página.
+                fifoSCQueue.add(victimIndex); // Adiciona no fim
                 return victimIndex;
             } else {
-                // Segunda chance (R=1)
+                // 3. Segunda chance (R=1).
                 p.R = 0; // Zera o bit R
-                fifoPointer = (fifoPointer + 1) % RAM_SIZE; // Avança o ponteiro
+                // Move o frame para o fim da fila (dá a segunda chance)
+                fifoSCQueue.add(victimIndex); // Adiciona no fim
             }
         }
     }
