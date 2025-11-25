@@ -1,1 +1,142 @@
-
+preencoded.png
+ A Arquitetura da Memória
+ Evolução dos Sistemas de Arquivos: De FAT aAPFS
+ Como organizamos o caos digital através da história da computação
+ Amadeus ferro da Silva NetoJoão Victor Guidi de Lima 
+preencoded.png
+ O que é um Sistema de Arquivos?
+ A Camada Invisível
+ A ponte entre o hardware físico e o usuário final Transforma bits em arquivos reconhecíveis Define como os dados são organizados, armazenados e 
+recuperados
+ FAT
+ Simplicidade universal
+ HPFS
+ Inovação OS/2
+ NTFS
+ Fortaleza corporativa
+ EXT4
+ Motor do Linux
+ APFS
+ Era do Flash
+preencoded.png
+ FAT16 e FAT32: AEra da Simplicidade
+ Contexto Histórico
+ Padrão do MS-DOS e Windows 95
+ Prioridade absoluta: compatibilidade 
+universal
+ Estrutura Básica
+ • Tabela de Alocação simples
+ • Lista linear de clusters
+ • Sem recursos de segurança
+ Limitações Críticas
+ 1
+ FAT16
+ Diretório raiz fixo: máx 512 entradas
+ 2
+ FAT32
+ Arquivo individual: limite de 4GB
+ O Problema do Slack Space
+ Clusters de 32KB desperdiçam espaço: um arquivo de 1KB ocupa 32KB no disco
+HPFS: A Criança do Divórcio
+ High Performance File System (IBM/Microsoft, 1989)
+ Banda Central de Diretório
+ Índice posicionado no meio físico do disco reduz 
+drasticamente o movimento da agulha (seek time)
+ B-Trees
+ Busca binária de arquivos — muito mais rápida que a lista 
+linear do FAT
+ Hot Fixing
+ Mapeamento automático de setores defeituosos em tempo 
+real — sem intervenção do usuário
+ preencoded.png
+NTFS: A Fortaleza da Microsoft
+ Lançado com Windows NT (1993) —Foco em segurança 
+corporativa
+ Master File Table (MFT)
+ Filosofia revolucionária: "Tudo é um arquivo"
+ 01
+ Resident Data
+ Arquivos < 900 bytes gravados 
+dentro da própria MFT
+ 03
+ 02
+ Journaling ($LogFile)
+ Proteção contra corrupção em 
+quedas de energia
+ ACLs
+ Permissões de segurança granulares por usuário
+ preencoded.png
+preencoded.png
+ NTFS: Funcionalidades Avançadas
+ Alternate Data Streams
+ Capacidade de esconder dados 
+"atrás" de um arquivo
+ Usado para segurança —e também 
+por malware
+ Compressão e Cotas
+ Recursos nativos do sistema de 
+arquivos
+ Gerenciamento automático de 
+espaço
+ EFS (Encrypting File System)
+ Criptografia transparente de arquivos
+ Proteção integrada ao sistema
+EXT4: O Motor do Linux e Android
+ Evolução da família Extended (2008) —Padrão para servidores e 
+mobile
+ Inovação: Extents
+ Substituição do mapeamento bloco
+a-bloco por faixas contíguas
+ "Gravar do bloco 100 ao 5000" (1 
+comando)
+ vs.
+ Listar 4.900 blocos individuais
+ Alocação Atrasada
+ Organiza dados na RAM antes de 
+gravar
+ Resultado: menos 
+fragmentação
+ H-Trees
+ Subdiretórios infinitos
+ Escalabilidade massiva
+ preencoded.png
+APFS: Nascido para o Flash
+ Apple File System (2017) —Substituiu o HFS+, otimizado para SSDs
+ Arquitetura Copy-on-Write (CoW)
+ Nunca Sobrescreve
+ Dados antigos permanecem intactos
+ Grava Novo Local
+ Escreve em área livre do disco
+ Atualiza Ponteiros
+ Redireciona referências
+ Libera Antigo
+ Espaço disponível novamente
+ Crash protection nativo sem overhead de journaling duplo
+ preencoded.png
+preencoded.png
+ APFS: Flexibilidade e Velocidade
+ Clonagem Instantânea
+ Copiar arquivos grandes sem 
+consumo extra imediato de 
+espaço
+ Snapshots
+ "Fotos" instantâneas do sistema 
+para backup (Time Machine)
+ Criptografia Nativa
+ Forte e integrada ao hardware Apple
+ Gerenciamento Dinâmico
+ Containers vs. Partições:Volumes compartilham o mesmo espaço livre 
+dinamicamente
+ Acabou o problema: "Partição cheia, disco vazio"
+preencoded.png
+ Evolução Contínua
+ De 1977 a 2017+: A jornada da organização digital
+ Recurso FAT32 NTFS EXT4 APFS
+ Journaling Não Sim Sim CoW 
+Tam. Máx. Arquivo 4 GB 16 TB+ 16 TB+ 8 EB
+ Permissões Não ACLs POSIX ACLs/Nativo
+ Otimização SSD Baixa Média Boa Excelente
+ Uso Principal Pendrives Windows Linux/Android macOS/iOS
+ Aescolha do sistema de arquivos define a performancee a segurançados seus dados
+ Aevolução do hardware (Disquete →HD →SSD) dita aevolução dos sistemas de arquivos. Hoje, segurança e integridade são mais importantes que apenas 
+"armazenar".
